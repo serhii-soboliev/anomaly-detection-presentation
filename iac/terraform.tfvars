@@ -1,1 +1,1 @@
-project_id="anomaly-detection-demo"
+project_id="anomaly-detection-presentation"
