@@ -28,3 +28,19 @@ resource "google_project_service" "storage_component_service" {
   project = var.project_id
   service = "storage-component.googleapis.com"
 }
+
+resource "google_pubsub_topic" "incoming_topic" {
+  name = var.topic_id
+}
+
+resource "google_pubsub_subscription" "incoming_subscription" {
+  name  = var.subscription_id
+  topic = google_pubsub_topic.incoming_topic.name
+}
+
+resource "google_project_iam_binding" "dataflow_admin" {
+    role    = "roles/dataflow.admin"
+    members = [
+        join("", ["serviceAccount:",var.project_number, "@cloudbuild.gserviceaccount.com"])
+    ]
+}
