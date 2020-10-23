@@ -4,37 +4,29 @@ provider "google" {
   region  = var.region
 }
 
-resource "google_project_service" "dataflow_service" {
-  project = var.project_id
-  service = "dataflow.googleapis.com"
+locals {
+  incoming_topic_name = "incoming-topic",
+  incoming_topic_subscription = "incoming-topic-sub"
+
 }
 
-resource "google_project_service" "dlp_service" {
-  project = var.project_id
-  service = "dlp.googleapis.com"
-}
-
-resource "google_project_service" "pubsub_service" {
-  project = var.project_id
-  service = "pubsub.googleapis.com"
-}
-
-resource "google_project_service" "cloudbuild_service" {
-  project = var.project_id
-  service = "cloudbuild.googleapis.com"
-}
-
-resource "google_project_service" "storage_component_service" {
-  project = var.project_id
-  service = "storage-component.googleapis.com"
+resource "google_project_service" "apis" {
+  for_each = toset([
+    "dataflow.googleapis.com",
+    "pubsub.googleapis.com",
+    "dlp.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "storage-component.googleapis.com"
+  ])
+  service = each.value
 }
 
 resource "google_pubsub_topic" "incoming_topic" {
-  name = var.topic_id
+  name = local.incoming_topic_name
 }
 
 resource "google_pubsub_subscription" "incoming_subscription" {
-  name  = var.subscription_id
+  name  = local.incoming_topic_subscription
   topic = google_pubsub_topic.incoming_topic.name
 }
 
