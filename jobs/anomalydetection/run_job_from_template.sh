@@ -3,7 +3,7 @@ export BUCKET_NAME=anomaly-detection-presentation-data
 export PROJECT_ID=anomaly-detection-presentation
 export IMAGE_NAME=anomaly-detection
 export IMAGE_TAG=1.0
-export TABLE_NAME=anomaly-detection-presentation:work_data_ds.outlier_data
+export TABLE_NAME=anomaly-detection-presentation.work_data_ds.outlier_data
 export REGION=us-central1
 export SERVICE_ACCOUNT_NAME=dataflow_operator
 
