@@ -1,0 +1,16 @@
+{
+  "name": "Anomaly detection",
+  "description": "Detects and writes down outliers",
+  "parameters": [
+    {
+      "name": "input_table_name",
+      "label": "BigQuery input table",
+      "helpText": "Name of input BigQuery table, in the form PROJECT_ID.DATASET.TABLE"
+    },
+    {
+      "name": "output_file_path",
+      "label": "CSV output file path",
+      "helpText": "Cloud Storage path to the output CSV file"
+    }
+  ]
+}
