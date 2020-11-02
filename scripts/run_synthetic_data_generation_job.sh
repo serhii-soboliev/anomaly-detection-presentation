@@ -3,7 +3,7 @@ export PROJECT_ID="anomaly-detection-presentation"
 export SCHEMA_LOCATION=gs://anomaly-detection-presentation-data/schemas/synthetic_data_schema.json
 export PUBSUB_TOPIC="projects/${PROJECT_ID}/topics/incoming-topic"
 export REGION=us-east1
-export QPS=2000
+export QPS=100
 
 gcloud beta dataflow flex-template run ${JOB_NAME} \
 --project=${PROJECT_ID} \
