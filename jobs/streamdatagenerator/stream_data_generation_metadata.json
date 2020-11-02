@@ -1,0 +1,11 @@
+{
+  "name": "Steam data generation",
+  "description": "Generate Data to Pub/Sub topic",
+  "parameters": [
+     {
+      "name": "output_topic",
+      "label": "Pub/Sub topic to stream generated data to ",
+      "helpText": "Name of Pub/Sub topic to stream data to"
+    }
+  ]
+}
