@@ -1,0 +1,3 @@
+steps:
+  - name: gcp.io/cloud-builders/git
+    args: ['clone', 'https://github.com/SergiySobolev/anomaly-detection-presentation.git']
