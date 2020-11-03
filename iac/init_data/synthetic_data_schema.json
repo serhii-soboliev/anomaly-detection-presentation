@@ -1,0 +1,6 @@
+{
+ "subscriber_id": "{{username()}}",
+ "audience_interest": {{integer(1000,5000)}},
+ "audience_range": {{integer(100,400}}
+}
+

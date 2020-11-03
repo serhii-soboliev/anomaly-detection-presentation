@@ -1,0 +1,6 @@
+{
+  "image": "gcr.io/anomaly-detection-presentation/df-ml-anomaly-detection",
+  "sdk_info": {
+    "language": "JAVA"
+  }
+}

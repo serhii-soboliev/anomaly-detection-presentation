@@ -1,0 +1,49 @@
+{
+  "image": "gcr.io/dataflow-templates/2020-10-26-00_rc00/streaming-data-generator",
+  "metadata": {
+    "name": "Streaming Data Generator",
+    "description": "A pipeline to publish messages at specified qps.This template can be used to benchmark performance of streaming pipelines.",
+    "parameters": [
+      {
+        "name": "schemaLocation",
+        "label": "Location of Schema file",
+        "helpText": "GCS path of schema location. ex: gs://<bucket-name>/prefix",
+        "regexes": [
+          "^gs:\\/\\/[^\\n\\r]+$"
+        ],
+        "paramType": "GCS_READ_FILE"
+      },
+      {
+        "name": "topic",
+        "label": "Output Pub/Sub topic",
+        "helpText": "The name of the topic to which the pipeline should publish data. For example, projects/<project-id>/topics/<topic-name>",
+        "regexes": [
+          "^projects\\/[^\\n\\r\\/]+\\/topics\\/[^\\n\\r\\/]+$"
+        ],
+        "paramType": "PUBSUB_TOPIC"
+      },
+      {
+        "name": "qps",
+        "label": "Required output qps",
+        "helpText": "Messages to be published per second",
+        "regexes": [
+          "^[0-9]+$"
+        ],
+        "paramType": "TEXT"
+      },
+      {
+        "name": "autoscalingAlgorithm",
+        "label": "Autoscaling algorithm",
+        "helpText": "Algorithm used for autoscaling the workers",
+        "isOptional": true,
+        "regexes": [
+          "^(THROUGHPUT_BASED|NONE)$"
+        ],
+        "paramType": "TEXT"
+      }
+    ]
+  },
+  "sdkInfo": {
+    "language": "JAVA"
+  }
+}
