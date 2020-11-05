@@ -7,6 +7,6 @@ python3 streaming_data_generator.py \
 --project $PROJECT \
 --job_name generate-data \
 --temp_location gs://$BUCKET/tmp/ \
---output-topic=incoming-topic \
+--incoming-topic=projects/$PROJECT/topics/incoming-topic \
 --streaming
 
