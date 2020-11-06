@@ -1,3 +1,4 @@
+pip install setuptools
 pip install apache_beam
 
 export PROJECT=anomaly-detection-presentation
