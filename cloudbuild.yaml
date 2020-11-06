@@ -1,3 +1,14 @@
 steps:
+  - id: "Clone repository"
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/SergiySobolev/anomaly-detection-presentation.git']
+    args: [ 'clone', 'https://github.com/SergiySobolev/anomaly-detection-presentation.git' ]
+
+  - id: "Get build number"
+    name: gcr.io/cloud-builders/git
+    dir: 'cloudbuild-dataflow-demo/streaming'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        git rev-parse --short HEAD > _BUILDNUMBER
+    waitFor: [ 'Clone repository' ]

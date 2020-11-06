@@ -9,7 +9,7 @@ python3 transform_events_job.py \
 --region $REGION \
 --runner DataflowRunner \
 --project $PROJECT \
---job_name transform-events-job-2 \
+--job_name transform-events-job \
 --temp_location gs://$BUCKET/tmp/ \
 --incoming_topic=projects/$PROJECT/topics/$TOPIC_NAME \
 --output_table=$PROJECT:$DATASET_NAME.$TABLE_NAME \
