@@ -1,3 +1,5 @@
+pip install apache_beam
+
 export PROJECT=anomaly-detection-presentation
 export REGION=us-central1
 export BUCKET=gs://anomaly-detection-presentation-data
