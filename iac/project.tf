@@ -1,7 +1,7 @@
 locals {
   bucket_name = "anomaly-detection-presentation-data"
+  new_file_to_storage_topic_name="new-file-to-storage"
   incoming_topic_name = "incoming-topic"
-  incoming_topic_subscription = "incoming-topic-sub"
   bq_dataset_name = "work_ds"
   cluster_model_data_table_name = "cluster_model_data"
 }
@@ -27,9 +27,9 @@ resource "google_pubsub_topic" "incoming_topic" {
   project = var.project_id
 }
 
-resource "google_pubsub_subscription" "incoming_subscription" {
-  name = local.incoming_topic_subscription
-  topic = google_pubsub_topic.incoming_topic.name
+resource "google_pubsub_topic" "new_file_to_storage_topic" {
+  name = local.new_file_to_storage_topic_name
+  project = var.project_id
 }
 
 resource "google_project_iam_binding" "dataflow_admin" {
@@ -45,6 +45,25 @@ resource "google_project_iam_binding" "dataflow_admin" {
 resource "google_storage_bucket" "batch_data" {
   name = local.bucket_name
   location = var.region
+}
+
+
+resource "google_storage_notification" "new_file_to_bucket_notification" {
+  bucket         = google_storage_bucket.batch_data.name
+  object_name_prefix = "incoming"
+  payload_format = "JSON_API_V1"
+  topic          = google_pubsub_topic.new_file_to_storage_topic.id
+  event_types    = ["OBJECT_FINALIZE"]
+  depends_on = [google_pubsub_topic_iam_binding.storage_notification_binding]
+}
+
+data "google_storage_project_service_account" "gcs_account" {
+}
+
+resource "google_pubsub_topic_iam_binding" "storage_notification_binding" {
+  topic   = google_pubsub_topic.new_file_to_storage_topic.id
+  role    = "roles/pubsub.publisher"
+  members = ["serviceAccount:${data.google_storage_project_service_account.gcs_account.email_address}"]
 }
 
 resource "google_storage_bucket_object" "dynamic_template_secure_log_aggr_template_object" {

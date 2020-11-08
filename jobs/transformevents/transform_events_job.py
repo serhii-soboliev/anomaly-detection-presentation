@@ -16,11 +16,6 @@ class TransformEventsOptions(PipelineOptions):
                                            required=True,
                                            help='Name of topic to get events from')
 
-        parser.add_value_provider_argument('--incoming_file_pattern',
-                                           type=str,
-                                           required=False,  # TODO change to True
-                                           help='File pattern to read events from')
-
         parser.add_value_provider_argument('--output_table',
                                            type=str,
                                            required=True,
