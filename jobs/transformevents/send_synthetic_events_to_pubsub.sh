@@ -1,5 +1,5 @@
 #!/bin/bash
-n=100
+n=50
 
 for i in $(seq 1 $n);
 do

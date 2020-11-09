@@ -1,10 +1,12 @@
 import logging
 import json
 import time
+import io
+import csv
 
 import apache_beam as beam
 from apache_beam import DoFn
-from apache_beam.io import ReadFromPubSub, WriteToBigQuery
+from apache_beam.io import ReadFromPubSub, WriteToBigQuery, ReadAllFromText
 from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions
 
 
@@ -30,11 +32,13 @@ class TransformStorageEvents(DoFn):
 
     def process(self, event, **kwargs):
         logging.info("Initial event: {}".format(event))
-        event_json = json.loads(event)
-        logging.info("Json event: {}".format(event_json))
-        event_json['source'] = "PUBSUB"
-        event_json['arrival_time'] = time.time()
-        transformed_event = event_json
+        row_elements = event.split(",")
+        transformed_event = {"subscriber_id": row_elements[0],
+                             "audience_interest": row_elements[1],
+                             "audience_range": row_elements[2],
+                             "source": "STORAGE",
+                             "arrival_time": str(time.time())
+                             }
         logging.info("Transformed event: {}".format(transformed_event))
         yield transformed_event
 
@@ -65,10 +69,10 @@ def run():
          | 'Notification from pubsub' >> ReadFromPubSub(incoming_notification_topic)
          | "Convert notification to dict" >> beam.Map(lambda x: json.loads(x))
          | "Extract filename" >> beam.ParDo(ExtractFilename())
+         | "Read events from files" >> ReadAllFromText()
+         | "Transform Storage Events" >> beam.ParDo(TransformStorageEvents())
+         | "Write to BigQuery" >> WriteToBigQuery(table=output_table)
          )
-         # | "read file" >> ReadAllFromText() \
-         # | 'split' >> beam.Map(lambda x: x.split(',')) \
-         # | 'format to dict' >> beam.Map(lambda x: {"id": x[0], "name": x[1]})
 
     p.run()
 
