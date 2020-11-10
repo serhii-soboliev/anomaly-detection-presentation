@@ -1,11 +1,9 @@
-import logging
 import json
+import logging
 import time
-import io
-import csv
 
 import apache_beam as beam
-from apache_beam import DoFn
+from apache_beam import DoFn, ParDo, Map
 from apache_beam.io import ReadFromPubSub, WriteToBigQuery, ReadAllFromText
 from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions
 
@@ -67,15 +65,14 @@ def run():
 
     _ = (p
          | 'Notification from pubsub' >> ReadFromPubSub(incoming_notification_topic)
-         | "Convert notification to dict" >> beam.Map(lambda x: json.loads(x))
-         | "Extract filename" >> beam.ParDo(ExtractFilename())
+         | "Convert notification to dict" >> Map(lambda x: json.loads(x))
+         | "Extract filename" >> ParDo(ExtractFilename())
          | "Read events from files" >> ReadAllFromText()
-         | "Transform Storage Events" >> beam.ParDo(TransformStorageEvents())
+         | "Transform Storage Events" >> ParDo(TransformStorageEvents())
          | "Write to BigQuery" >> WriteToBigQuery(table=output_table)
          )
 
     p.run()
-
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
