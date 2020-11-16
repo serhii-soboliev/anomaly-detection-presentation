@@ -3,6 +3,7 @@ import logging
 import json
 import random
 
+
 def build_message():
     subscriber_id = "000001"
     audience_interest = random.randint(1000, 5000)
