@@ -6,8 +6,6 @@
 * [Outliers visualization](#outliers-visualization)
 * [Anomaly detection approach](#anomaly-detection-approach)
 
-
-
 <!-- ABOUT THE PROJECT -->
 # About the project
 

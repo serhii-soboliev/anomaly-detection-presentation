@@ -113,16 +113,5 @@ resource "google_bigquery_table" "audience_events_data" {
   schema = file("bqtables/audience_events_data_schema.json")
 }
 
-resource "google_bigquery_table" "outlier_data" {
-  dataset_id = google_bigquery_dataset.anomaly_detection_presentation_ds.dataset_id
-  table_id = "outlier_data"
-  description = "Network Log Outlier Table"
-  schema = file("bqtables/outlier_table_schema.json")
-}
 
-resource "google_bigquery_table" "normalized_centroid_data" {
-  dataset_id = google_bigquery_dataset.anomaly_detection_presentation_ds.dataset_id
-  table_id = "normalized_centroid_data"
-  description = "Sample Normalized Data"
-  schema = file("bqtables/normalized_centroid_data_schema.json")
-}
+
