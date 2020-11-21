@@ -3,6 +3,7 @@
 
 * [About the Project](#about-the-project)
 * [Dataflow Diagram](#dataflow-diagram)
+* [Outliers visualization](#outliers-visualization)
 
 
 
@@ -16,4 +17,6 @@ creating machine learning models to detect anomalies and visualizing obtained re
 # Dataflow diagram
 ![Dataflow diagram](https://github.com/SergiySobolev/anomaly-detection-presentation/blob/master/images/dataflowdiagram.png)
 
- 
+<!-- OUTLIERS VISUALIZATION -->
+# Outliers visualization
+![Outliers visualization](https://github.com/SergiySobolev/anomaly-detection-presentation/blob/master/images/visualization.png)

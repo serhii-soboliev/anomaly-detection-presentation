@@ -3,3 +3,4 @@
 *.backup
 *.plan
 /*.tfstate
+**checkpoint.ipynb
