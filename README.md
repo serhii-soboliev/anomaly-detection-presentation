@@ -25,6 +25,6 @@ creating machine learning models to detect anomalies and visualizing obtained re
 <!-- ANOMALY DETECTION APPROACH -->
 # Anomaly Detection approach
 Anomalies are detected using [K-Means clustering algorithm](https://towardsdatascience.com/k-means-clustering-algorithm-applications-evaluation-methods-and-drawbacks-aa03e644b48a)
-implemented on [BigQuery ML service](https://cloud.google.com/bigquery-ml/docs)
+implemented on [BigQuery ML service](https://cloud.google.com/bigquery-ml/docs).
 Details could be found there: [BigQuery k-means tutorial](https://cloud.google.com/bigquery-ml/docs/kmeans-tutorial)
 
